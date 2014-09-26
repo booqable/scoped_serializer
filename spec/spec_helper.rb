@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'scoped_serializer'
 require 'with_model'
 
