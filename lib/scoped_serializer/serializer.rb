@@ -94,9 +94,10 @@ module ScopedSerializer
     # @return [Hash]
     #
     def attributes_hash
-      @scope.attributes.collect do |attr|
+      attributes = @scope.attributes.collect do |attr|
         [attr, fetch_property(attr)]
-      end.to_h
+      end
+      Hash[attributes]
     end
 
     ##
