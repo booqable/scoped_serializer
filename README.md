@@ -1,6 +1,16 @@
 # ScopedSerializer
 
-[![Build Status](https://secure.travis-ci.org/booqable/scoped_serializer.svg?branch=master)](http://travis-ci.org/booqable/scoped_serializer)
+[![Gem Version](http://img.shields.io/gem/v/scoped_serializer.svg?style=flat)][gem]
+[![Build Status](http://img.shields.io/travis/booqable/scoped_serializer.svg?style=flat)][travis]
+[![Coverage Status](http://img.shields.io/coveralls/booqable/scoped_serializer.svg?style=flat)][coveralls]
+[![Code Climate](http://img.shields.io/codeclimate/github/booqable/scoped_serializer.svg?style=flat)][codeclimate]
+[![Dependency Status](http://img.shields.io/gemnasium/booqable/scoped_serializer.svg?style=flat)][gemnasium]
+
+[gem]: https://rubygems.org/gems/scoped_serializer
+[travis]: http://travis-ci.org/booqable/scoped_serializer
+[coveralls]: https://coveralls.io/r/booqable/scoped_serializer
+[codeclimate]: https://codeclimate.com/github/booqable/scoped_serializer
+[gemnasium]: https://gemnasium.com/booqable/scoped_serializer
 
 ScopedSerializer serializes your models based on context.
 
