@@ -78,6 +78,8 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    with_model (1.2.0)
+      activerecord (>= 3.0, < 4.2)
 
 PLATFORMS
   ruby
@@ -87,3 +89,4 @@ DEPENDENCIES
   rake
   scoped_serializer!
   sqlite3
+  with_model
