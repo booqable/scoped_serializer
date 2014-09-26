@@ -1,5 +1,7 @@
 # ScopedSerializer
 
+[![Build Status](https://secure.travis-ci.org/booqable/scoped_serializer.svg?branch=master)](http://travis-ci.org/booqable/scoped_serializer)
+
 ScopedSerializer serializes your models based on context.
 
 ## Installation
