@@ -1,8 +1,14 @@
 # ScopedSerializer
 
-## What does it do?
+ScopedSerializer serializes your models based on context.
 
-ScopedSerializer serializes your models based on context;
+## Installation
+
+```
+gem 'scoped_serializer'
+```
+
+## What does it do?
 
 ```ruby
 class OrderSerializer < ScopedSerializer::Serializer
