@@ -20,8 +20,11 @@ ScopedSerializer serializes your models based on context.
 gem 'scoped_serializer'
 ```
 
-## What does it do?
+## Quick summary
 
+Setup serialization scopes and render different output based on context. Use it when you're developing an API and return different data per action (collections/resources).
+
+__Quick example__
 ```ruby
 class OrderSerializer < ScopedSerializer::Serializer
   attributes :id, :status
