@@ -5,6 +5,27 @@ module ScopedSerializer
 
     attr_accessor :name, :attributes, :associations, :options
 
+    class << self
+
+      ##
+      # Initializes a scope from hash.
+      #
+      # @example
+      #   Scope.from_hash({ :attributes => [:title, :created_at] })
+      #
+      def from_hash(data={})
+        scope = new self
+        scope.attributes *data[:attributes]
+
+        (data[:associations] || []).each do |association|
+          scope.association association
+        end
+
+        scope
+      end
+
+    end
+
     def initialize(name, default=nil, &block)
       @name = name
       @options = {}

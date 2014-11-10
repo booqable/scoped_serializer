@@ -72,6 +72,9 @@ module ScopedSerializer
       if scope.is_a?(Symbol)
         @scope_name = scope
         @scope = self.class.find_scope(scope)
+      elsif scope.is_a?(Hash)
+        @scope_name = :custom
+        @scope = Scope.from_hash(scope)
       else
         @scope_name = scope.name
         @scope = scope

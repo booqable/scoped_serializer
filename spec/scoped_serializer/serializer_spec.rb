@@ -36,6 +36,15 @@ describe ScopedSerializer::Serializer do
         serializer.scope.name.should == :resource
       end
 
+      it 'should use custom scope from a hash' do
+        serializer = BlogPostSerializer.new(post_1, :default, { :scope => { :attributes => [:created_at] } })
+        serializer.as_json.should == {
+          :blog_post => {
+            :created_at => post_1.created_at
+          }
+        }
+      end
+
     end
 
   end

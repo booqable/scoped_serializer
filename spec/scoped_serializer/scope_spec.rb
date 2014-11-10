@@ -4,6 +4,20 @@ describe ScopedSerializer::Scope do
 
   let(:scope) { ScopedSerializer::Scope.new(:default) }
 
+  describe '.from_hash' do
+
+    it 'should initialize a scope from hash' do
+      scope = ScopedSerializer::Scope.from_hash({
+        :attributes => [:title, :created_at],
+        :associations => [:user, :account]
+      })
+
+      scope.attributes.should == [:title, :created_at]
+      scope.associations.should == { :user => {}, :account => {}}
+    end
+
+  end
+
   describe '#initialize' do
 
     it 'should initialize with defaults' do
