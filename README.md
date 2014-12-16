@@ -52,7 +52,7 @@ It supports associations and eager loading out-of-the-box.
 
 ## The problem
 
-While developing the API for Booqable, we ran into problems where we would return different data based on context. For example we would list orders but not nested associations. When the user requests a single order, we do want to render nested associations. This resulted in overly complicated serializers with a lot of conditional rendering.
+While developing the API for [Booqable Rental Software](http://booqable.com/ "Booqable Rental Software")Booqable, we ran into problems where we would return different data based on context. For example we would list orders but not nested associations. When the user requests a single order, we do want to render nested associations. This resulted in overly complicated serializers with a lot of conditional rendering.
 
 The alternative would be to create different serializer based on context, such as `OrderCollectionSerializer` and `OrderResourceSerializer`.
 
