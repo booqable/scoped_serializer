@@ -33,19 +33,15 @@ class OrderSerializer < ScopedSerializer::Serializer
   scope :resource do
     has_many :products => :stock_items
   end
+  
   scope :collection do
     has_many :notes
-  end
-  scope :api_v1 do
-    attributes :starts_at, :stops_at
-    belongs_to :employee
   end
 end
 
 # ScopedSerializer.render(@order) # Default output
 # ScopedSerializer.render(@order, :resource) # Includes products and stock_items
 # ScopedSerializer.render(Order.all, :collection) # Array of orders, each includes notes
-# ScopedSerializer.render(@order, :api_v1) # Includes employee and more attributes
 ```
 
 It supports associations and eager loading out-of-the-box.
@@ -78,10 +74,10 @@ The above example will render the following outputs:
 __Example for `ScopedSerializer.render(@order)`__
 ```json
 {
-  order: {
-    id: 1,
-    status: 'reserved',
-    customer: { ... }
+  "order": {
+    "id": 1,
+    "status": "reserved",
+    "customer": { ... }
   }
 }
 ```
@@ -89,15 +85,15 @@ __Example for `ScopedSerializer.render(@order)`__
 __Example for `ScopedSerializer.render(@order, :resource)`__
 ```json
 {
-  order: {
-    id: 1,
-    status: 'reserved',
-    customer: { ... },
-    products: [
+  "order": {
+    "id": 1,
+    "status": "reserved",
+    "customer": { ... },
+    "products": [
       {
-        id: 1,
-        name: 'Sony NX5',
-        stock_items: [...]
+        "id": 1,
+        "name": "Sony NX5",
+        "stock_items": [...]
       }
     ]
   }
