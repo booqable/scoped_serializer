@@ -54,5 +54,18 @@ module ScopedSerializer
       @options[:meta] || {}
     end
 
+    def to_csv(options={})
+      CSV.generate(options) do |csv|
+        csv << scope.attributes
+        csv << attributes_hash.values
+      end
+    end
+
+    def to_xls(options={})
+      options.merge!(:col_sep => "\t")
+
+      to_csv(options)
+    end
+
   end
 end

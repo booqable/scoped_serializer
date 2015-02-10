@@ -25,5 +25,26 @@ module ScopedSerializer
       data
     end
 
+    def to_csv(options={})
+      attributes = ScopedSerializer.find_serializer_by_class(@array.klass)
+        .find_scope(scope_name)
+        .attributes
+
+      CSV.generate(options) do |csv|
+        csv << attributes
+
+        array.each do |object|
+          resource = ScopedSerializer.for(object, scope_name)
+          csv << resource.attributes_hash.values
+        end
+      end
+    end
+
+    def to_xls(options={})
+      options.merge!(:col_sep => "\t")
+
+      to_csv(options)
+    end
+
   end
 end
