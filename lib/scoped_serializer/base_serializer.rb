@@ -1,3 +1,5 @@
+require 'csv'
+
 module ScopedSerializer
   class BaseSerializer
 
@@ -52,6 +54,25 @@ module ScopedSerializer
 
     def meta
       @options[:meta] || {}
+    end
+
+    ##
+    # Returns attributes as a CSV string.
+    #
+    def to_csv(options={})
+      CSV.generate(options) do |csv|
+        csv << scope.attributes
+        csv << attributes_hash.values
+      end
+    end
+
+    ##
+    # Returns attributes as an XLS string.
+    #
+    def to_xls(options={})
+      options.merge!(:col_sep => "\t")
+
+      to_csv(options)
     end
 
   end
