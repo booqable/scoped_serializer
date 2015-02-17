@@ -24,4 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'with_model'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'coveralls'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'actionpack'
+  s.add_development_dependency 'activesupport'
 end
