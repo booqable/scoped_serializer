@@ -33,15 +33,15 @@ class OrderSerializer < ScopedSerializer::Serializer
   scope :resource do
     has_many :products => :stock_items
   end
-  
+
   scope :collection do
     has_many :notes
   end
 end
 
 # ScopedSerializer.render(@order) # Default output
-# ScopedSerializer.render(@order, :resource) # Includes products and stock_items
-# ScopedSerializer.render(Order.all, :collection) # Array of orders, each includes notes
+# ScopedSerializer.render(@order, :scope => :resource) # Includes products and stock_items
+# ScopedSerializer.render(Order.all, :scope => :collection) # Array of orders, each includes notes
 ```
 
 It supports associations and eager loading out-of-the-box.
@@ -82,7 +82,7 @@ __Example for `ScopedSerializer.render(@order)`__
 }
 ```
 
-__Example for `ScopedSerializer.render(@order, :resource)`__
+__Example for `ScopedSerializer.render(@order, :scope => :resource)`__
 ```json
 {
   "order": {
@@ -128,9 +128,9 @@ ScopedSerializer __does not eager load collections__. You will need to manually 
 
 ```ruby
 # No eager loading at all
-ScopedSerializer.render(Order.all, :resource)
+ScopedSerializer.render(Order.all, :scope => :resource)
 # Manually eager load
-ScopedSerializer.render(Order.includes(:products => :stock_items), :resource)
+ScopedSerializer.render(Order.includes(:products => :stock_items), :scope => :resource)
 ```
 
 __More options__
