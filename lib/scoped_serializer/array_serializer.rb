@@ -10,9 +10,7 @@ module ScopedSerializer
     end
 
     def serializable_hash(options={})
-      array.collect do |object|
-        ScopedSerializer.for(object, @scope_name, @options.merge(:root => false)).as_json
-      end
+      serializable_objects.collect(&:as_json)
     end
 
     def meta
@@ -25,26 +23,28 @@ module ScopedSerializer
       data
     end
 
+    ##
+    # Returns attributes as a CSV string.
+    #
     def to_csv(options={})
-      attributes = ScopedSerializer.find_serializer_by_class(@array.klass)
-        .find_scope(scope_name)
-        .attributes
+      columns = options.delete(:columns)
 
       CSV.generate(options) do |csv|
-        csv << attributes
+        csv << columns if columns.any?
 
-        array.each do |object|
-          resource = ScopedSerializer.for(object, scope_name)
-          csv << resource.attributes_hash.values
+        serializable_objects.each do |object|
+          csv << object.attributes_hash.values
         end
       end
     end
 
-    def to_xls(options={})
-      options.merge!(:col_sep => "\t")
+    protected
 
-      to_csv(options)
-    end
+      def serializable_objects
+        @serializable_objects ||= array.collect do |object|
+          ScopedSerializer.for(object, @scope_name, @options.merge(:root => false))
+        end
+      end
 
   end
 end
