@@ -1,17 +1,16 @@
 module ScopedSerializer
   class ArraySerializer < BaseSerializer
 
-    attr_reader :array, :scope, :scope_name, :options
+    attr_reader :array, :options
 
-    def initialize(array, scope_name=:default, options={})
+    def initialize(array, options={})
       @array = array
-      @scope_name = scope_name
       @options = options || {}
     end
 
     def serializable_hash(options={})
       array.collect do |object|
-        ScopedSerializer.for(object, @scope_name, @options.merge(:root => false)).as_json
+        ScopedSerializer.for(object, @options.merge(:root => false)).as_json
       end
     end
 
