@@ -1,7 +1,7 @@
 require 'spec_helper'
+require 'rspec/rails'
 require 'fixtures/application'
 require 'fixtures/controllers'
-require 'rspec/rails'
 
 class BlogPostsController < TestController
 end
