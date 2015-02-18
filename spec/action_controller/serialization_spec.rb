@@ -12,23 +12,34 @@ describe ActionController::Serialization, type: :controller do
 
   controller(BlogPostsController) do
     def index
-      render :json => BlogPost.where({})
+      render :json => BlogPost.all
     end
     def show
       render :json => BlogPost.first
     end
   end
 
+  let(:json) { JSON.parse(response.body) }
+
   it 'should render collection scope' do
-    ScopedSerializer.should_receive(:for).with(BlogPost.where({}), :collection, anything)
     get :index
+
     controller.serializer_scope.should == :collection
+    json['blog_posts'].should == [
+      {
+        'title' => 'This is post 1'
+      },
+      {
+        'title' => 'This is post 2'
+      }
+    ]
   end
 
   it 'should render resource scope' do
-    ScopedSerializer.should_receive(:for).with(BlogPost.first, :resource, anything)
     get :show, :id => 1
+
     controller.serializer_scope.should == :resource
+    json['blog_post']['user'].should be_present
   end
 
 end

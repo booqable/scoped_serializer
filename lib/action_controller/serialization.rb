@@ -28,7 +28,7 @@ module ActionController
     # JSON serializer to use.
     #
     def build_json_serializer(object, options={})
-      ScopedSerializer.for(object, serializer_scope, options.merge(default_serializer_options.merge(:super => true)))
+      ScopedSerializer.for(object, { :scope => serializer_scope, :super => true }.merge(options.merge(default_serializer_options)))
     end
 
     ##
