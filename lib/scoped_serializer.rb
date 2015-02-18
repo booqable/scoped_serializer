@@ -5,6 +5,17 @@ require 'scoped_serializer/default_serializer'
 require 'scoped_serializer/array_serializer'
 require 'scoped_serializer/collection_serializer'
 
+begin
+  require 'action_controller'
+  require 'action_controller/serialization'
+
+  ActiveSupport.on_load(:action_controller) do
+    include ::ActionController::Serialization
+  end
+rescue LoadError
+  # No Rails?
+end
+
 ##
 # ScopedSerializer takes care of complex and abstract serialization classes.
 # It does this by allowing serialization scopes. For example, you can define a collection and a resource scope.
