@@ -29,7 +29,7 @@ module ScopedSerializer
       columns = options.delete(:columns)
 
       CSV.generate(options) do |csv|
-        csv << columns if columns.any?
+        csv << columns if columns.present?
 
         serializable_objects.each do |object|
           csv << object.attributes_hash.values
