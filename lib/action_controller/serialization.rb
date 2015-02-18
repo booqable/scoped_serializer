@@ -34,16 +34,6 @@ module ActionController
     ##
     # Renders specific JSON serializer see {ScopedSerializer}.
     #
-    def _render_option_json(resource, options)
-      serializer = build_json_serializer(resource, options)
-
-      if serializer
-        super(serializer, options)
-      else
-        super
-      end
-    end
-
     [:_render_option_json, :_render_with_renderer_json].each do |method|
       define_method method do |resource, options|
         serializer = build_json_serializer(resource, options)
