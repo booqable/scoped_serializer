@@ -92,7 +92,7 @@ describe ScopedSerializer do
       end
 
       it 'should render collection with associations' do
-        json = ScopedSerializer.render(BlogPost.order('id ASC'), :default, :associations => [{ :comments => :user }])
+        json = ScopedSerializer.render(BlogPost.order('id ASC'), :associations => [{ :comments => :user }])
 
         data = json[:blog_posts]
         data.count.should == 2
@@ -123,7 +123,7 @@ describe ScopedSerializer do
       end
 
       it 'should render collection with scope' do
-        json = ScopedSerializer.render(BlogPost.order('id ASC'), :resource)
+        json = ScopedSerializer.render(BlogPost.order('id ASC'), :scope => :resource)
 
         data = json[:blog_posts]
         data.count.should == 2

@@ -28,8 +28,8 @@ require 'scoped_serializer/collection_serializer'
 #     end
 #   end
 #
-#  ScopedSerializer.render(@order, :resource)
-#  ScopedSerializer.render(Order.order('id ASC'), :collection)
+#  ScopedSerializer.render(@order, :scope => :resource)
+#  ScopedSerializer.render(Order.order('id ASC'), :scope => :collection)
 #
 
 module ScopedSerializer
@@ -42,25 +42,25 @@ module ScopedSerializer
     #
     # @return [Hash]
     #
-    def render(object, scope=:default, options={})
+    def render(object, options={})
       options.merge!({
         :super => true
       })
 
-      self.for(object, scope, options).as_json
+      self.for(object, options).as_json
     end
 
     ##
     # Returns an instantized serializer for the given object.
     #
-    def for(object, scope=:default, options={})
+    def for(object, options={})
       if object.respond_to?(:each)
         serializer = find_serializer(object)
       else
         serializer = options[:serializer] || find_serializer(object) || DefaultSerializer
       end
 
-      serializer.new(object, scope, options) if serializer
+      serializer.new(object, options) if serializer
     end
 
     ##

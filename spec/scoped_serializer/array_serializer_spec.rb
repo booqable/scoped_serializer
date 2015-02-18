@@ -10,7 +10,7 @@ describe ScopedSerializer::ArraySerializer do
 
     it 'should add meta when array responds to total_count' do
       array.stub(:total_count).and_return(2)
-      serializer = ScopedSerializer::ArraySerializer.new(array, :default, :root => :posts)
+      serializer = ScopedSerializer::ArraySerializer.new(array, :root => :posts)
 
       serializer.meta.should == { :total_count => 2 }
       serializer.as_json[:meta][:total_count].should == 2
@@ -21,7 +21,7 @@ describe ScopedSerializer::ArraySerializer do
   describe '#to_csv' do
 
     it 'should render columns and attributes as csv' do
-      serializer = ScopedSerializer::ArraySerializer.new(array, :default, :root => :posts)
+      serializer = ScopedSerializer::ArraySerializer.new(array, :root => :posts)
       data = serializer.to_csv(:columns => ['title'])
 
       rows = CSV.parse(data)
@@ -35,7 +35,7 @@ describe ScopedSerializer::ArraySerializer do
   describe '#to_xls' do
 
     it 'should render columns and attributes as xls' do
-      serializer = ScopedSerializer::ArraySerializer.new(array, :default)
+      serializer = ScopedSerializer::ArraySerializer.new(array)
       data = serializer.to_xls(:columns => ['title'])
 
       rows = CSV.parse(data, :col_sep => "\t")
