@@ -4,14 +4,14 @@ describe ScopedSerializer::Serializer do
 
   include_context :dummy_serializers
 
-  let(:serializer) { BlogPostSerializer.new(post_1, :default) }
+  let(:serializer) { BlogPostSerializer.new(post_1) }
 
   describe 'options' do
 
     describe 'root' do
 
       it 'should define a root by options' do
-        serializer = BlogPostSerializer.new(post_1, :default, { :root => :test })
+        serializer = BlogPostSerializer.new(post_1, { :root => :test })
         serializer.stub(:serializable_hash).and_return({})
 
         serializer.as_json[:test].should == {}
@@ -21,7 +21,7 @@ describe ScopedSerializer::Serializer do
         scope = BlogPostSerializer.find_scope(:default)
         scope.root :test
 
-        serializer = BlogPostSerializer.new(post_1, :default)
+        serializer = BlogPostSerializer.new(post_1)
         serializer.stub(:serializable_hash).and_return({})
 
         serializer.as_json[:test].should == {}
@@ -32,12 +32,12 @@ describe ScopedSerializer::Serializer do
     describe 'scope' do
 
       it 'should set scope defined by options' do
-        serializer = BlogPostSerializer.new(post_1, :default, { :scope => :resource })
+        serializer = BlogPostSerializer.new(post_1, { :scope => :resource })
         serializer.scope.name.should == :resource
       end
 
       it 'should use custom scope from a hash' do
-        serializer = BlogPostSerializer.new(post_1, :default, { :scope => { :attributes => [:created_at] } })
+        serializer = BlogPostSerializer.new(post_1, { :scope => { :attributes => [:created_at] } })
         serializer.as_json.should == {
           :blog_post => {
             :created_at => post_1.created_at
@@ -52,7 +52,7 @@ describe ScopedSerializer::Serializer do
   describe '#attributes_hash' do
 
     it 'should iterate through attributes and render them' do
-      serializer = BlogPostSerializer.new(post_1, :resource)
+      serializer = BlogPostSerializer.new(post_1, :scope => :resource)
       serializer.attributes_hash.should == {
         :title => 'This is post 1'
       }
@@ -63,7 +63,7 @@ describe ScopedSerializer::Serializer do
   describe '#associations_hash' do
 
     it 'should iterate through associations and render them' do
-      serializer = BlogPostSerializer.new(post_1, :resource)
+      serializer = BlogPostSerializer.new(post_1, :scope => :resource)
       serializer.associations_hash.should == {
         :user => {
           :name => 'John Doe'
@@ -121,7 +121,7 @@ describe ScopedSerializer::Serializer do
   describe '#fetch_property' do
 
     it 'should get property if it doesnt exist on the serializer' do
-      serializer = BlogPostSerializer.new(post_1, :default)
+      serializer = BlogPostSerializer.new(post_1)
 
       post_1.stub(:some_attribute).and_return('original!')
       serializer.stub(:some_attribute).and_return('override!')

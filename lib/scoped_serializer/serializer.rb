@@ -61,13 +61,10 @@ module ScopedSerializer
 
     attr_reader :resource, :scope, :options
 
-    def initialize(resource, scope=:default, options={})
+    def initialize(resource, options={})
       @resource = resource
       @options  = options || {}
-
-      if options[:scope].present?
-        scope = options[:scope]
-      end
+      scope = options[:scope] || :default
 
       if scope.is_a?(Symbol)
         @scope_name = scope
@@ -146,7 +143,7 @@ module ScopedSerializer
         end
 
         object  = fetch_association(association_data, includes)
-        data    = ScopedSerializer.for(object, :default, options.merge(:associations => options[:include])).as_json
+        data    = ScopedSerializer.for(object, options.merge(:associations => options[:include])).as_json
 
         hash.merge!(data) if data
       end

@@ -10,7 +10,7 @@ module ScopedSerializer
 
     def to_csv(options={})
       attributes = ScopedSerializer.find_serializer_by_class(@array.klass)
-             .find_scope(scope_name)
+             .find_scope(options[:scope] || :default)
              .attributes
 
       super(options.merge(:columns => attributes))

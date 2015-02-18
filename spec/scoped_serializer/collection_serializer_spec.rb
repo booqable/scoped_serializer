@@ -9,7 +9,7 @@ describe ScopedSerializer::CollectionSerializer do
   describe '#to_csv' do
 
     it 'should render columns and attributes as csv' do
-      serializer = ScopedSerializer::CollectionSerializer.new(collection, :default)
+      serializer = ScopedSerializer::CollectionSerializer.new(collection)
       data = serializer.to_csv
 
       rows = CSV.parse(data)
@@ -23,7 +23,7 @@ describe ScopedSerializer::CollectionSerializer do
   describe '#to_xls' do
 
     it 'should render columns and attributes as xls' do
-      serializer = ScopedSerializer::CollectionSerializer.new(collection, :default)
+      serializer = ScopedSerializer::CollectionSerializer.new(collection)
       data = serializer.to_xls
 
       rows = CSV.parse(data, :col_sep => "\t")
