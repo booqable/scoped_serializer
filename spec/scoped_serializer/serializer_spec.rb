@@ -25,6 +25,8 @@ describe ScopedSerializer::Serializer do
         serializer.stub(:serializable_hash).and_return({})
 
         serializer.as_json[:test].should == {}
+
+        scope.root nil # Reset scope
       end
 
     end

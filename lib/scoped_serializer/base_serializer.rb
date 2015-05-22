@@ -23,7 +23,13 @@ module ScopedSerializer
     #   default_root_key(User) # => 'user'
     #
     def default_root_key(object_class)
-      if object_class.respond_to?(:model_name)
+      if (serializer = ScopedSerializer.find_serializer(object_class.new))
+        root_key = serializer.find_scope(:default).options[:root]
+      end
+
+      if root_key
+        root_key.to_s
+      elsif object_class.respond_to?(:model_name)
         object_class.model_name.element
       else
         object_class.name
