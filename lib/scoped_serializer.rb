@@ -91,6 +91,8 @@ module ScopedSerializer
     end
 
     def find_serializer_by_class(object_class)
+      return object_class.serializer_class if object_class.respond_to?(:serializer_class)
+
       "#{object_class.name}Serializer".safe_constantize
     end
 
