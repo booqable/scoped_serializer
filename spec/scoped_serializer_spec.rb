@@ -190,4 +190,18 @@ describe ScopedSerializer do
 
   end
 
+  describe '.find_serializer_by_class' do
+
+    it 'should lookup serializer defined in class.serializer_class' do
+      serializer = ScopedSerializer.find_serializer_by_class(TestCustom)
+      serializer.should == CustomSerializer
+    end
+
+    it 'should default to {class_name}Serializer' do
+      serializer = ScopedSerializer.find_serializer_by_class(BlogPost)
+      serializer.should == BlogPostSerializer
+    end
+
+  end
+
 end
