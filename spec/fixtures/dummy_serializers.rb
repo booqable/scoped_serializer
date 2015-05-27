@@ -27,6 +27,32 @@ shared_context :dummy_serializers do
     end
   end
 
+  class RootKeySerializer < ScopedSerializer::Serializer
+    root :some_key
+  end
+
+  class CustomSerializer < ScopedSerializer::Serializer
+    attributes :name
+  end
+
+  with_model :TestCustom do
+    table do |t|
+      t.string :name
+    end
+
+    model do
+      class << self
+        def serializer_class; CustomSerializer; end
+      end
+    end
+  end
+
+  with_model :RootKey do
+    table do |t|
+      t.string :name
+    end
+  end
+
   with_model :BlogPost do
     table do |t|
       t.string :title
