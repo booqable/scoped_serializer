@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    scoped_serializer (1.0.0.b)
+    scoped_serializer (1.0.0)
       rails (>= 4.0)
 
 GEM
