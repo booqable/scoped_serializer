@@ -142,10 +142,10 @@ module ScopedSerializer
           includes = options[:preload] == true ? options[:include] : options[:preload]
         end
 
-        object  = fetch_association(association_data, includes)
-        data    = ScopedSerializer.for(object, options.merge(:associations => options[:include])).as_json
-
-        hash.merge!(data) if data
+        if (object = fetch_association(association_data, includes))
+          data = ScopedSerializer.for(object, options.merge(:associations => options[:include])).as_json
+          hash.merge!(data) if data
+        end
       end
 
       hash

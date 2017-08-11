@@ -6,6 +6,7 @@ module ScopedSerializer
     def initialize(array, options={})
       @array = array
       @options = options || {}
+      @options[:each_serializer] ||= @options.delete(:serializer)
     end
 
     def serializable_hash(options={})
@@ -41,7 +42,7 @@ module ScopedSerializer
 
       def serializable_objects
         @serializable_objects ||= array.collect do |object|
-          ScopedSerializer.for(object, @options.merge(:root => false))
+          ScopedSerializer.for(object, @options.merge(:root => false, :serializer => @options[:each_serializer]))
         end
       end
 
