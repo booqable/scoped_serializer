@@ -44,10 +44,14 @@ module ScopedSerializer
       options = @options.merge(options)
 
       if options[:root]
-        { options[:root].to_sym => serializable_hash }.merge(meta_hash)
+        { options[:root].to_sym => serializable_hash }.merge(meta_hash).merge(data_hash)
       else
         serializable_hash
       end
+    end
+
+    def data_hash
+      @options[:data] || {}
     end
 
     def meta_hash

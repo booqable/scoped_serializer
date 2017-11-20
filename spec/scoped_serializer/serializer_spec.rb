@@ -134,4 +134,13 @@ describe ScopedSerializer::Serializer do
 
   end
 
+  describe '#options data' do
+
+    it 'should render additional data' do
+      serializer = ScopedSerializer.render(post_1, :root => :post, :serializer => BlogPostSerializer, :data => { :additional => 'This is additional data' })
+      serializer[:additional].should == 'This is additional data'
+    end
+
+  end
+
 end
