@@ -56,8 +56,14 @@ describe ScopedSerializer::Serializer do
     it 'should iterate through attributes and render them' do
       serializer = BlogPostSerializer.new(post_1, :scope => :resource)
       serializer.attributes_hash.should == {
-        :title => 'This is post 1'
+        :title => 'This is post 1',
+        :rating => 4.0
       }
+    end
+
+    it 'should convert BigDecimals to Floats' do
+      serializer = BlogPostSerializer.new(post_1, :scope => :resource)
+      serializer.attributes_hash[:rating].should be_kind_of(Float)
     end
 
   end
@@ -77,7 +83,8 @@ describe ScopedSerializer::Serializer do
               :name => 'Jane Doe',
               :blog_posts => [
                 {
-                  :title => 'This is post 2'
+                  :title => 'This is post 2',
+                  :rating => 9.0
                 }
               ]
             }
@@ -97,7 +104,8 @@ describe ScopedSerializer::Serializer do
           :name => 'John Doe',
           :blog_posts => [
             {
-              :title => 'This is post 1'
+              :title => 'This is post 1',
+              :rating => 4.0
             }
           ]
         }

@@ -13,9 +13,9 @@ describe ScopedSerializer::CollectionSerializer do
       data = serializer.to_csv
 
       rows = CSV.parse(data)
-      rows[0].should == ['title']
-      rows[1].should == [post_1.title]
-      rows[2].should == [post_2.title]
+      rows[0].should == ['title', 'rating']
+      rows[1].should == [post_1.title, post_1.rating.to_f.to_s]
+      rows[2].should == [post_2.title, post_2.rating.to_f.to_s]
     end
 
   end
@@ -27,9 +27,9 @@ describe ScopedSerializer::CollectionSerializer do
       data = serializer.to_xls
 
       rows = CSV.parse(data, :col_sep => "\t")
-      rows[0].should == ['title']
-      rows[1].should == [post_1.title]
-      rows[2].should == [post_2.title]
+      rows[0].should == ['title', 'rating']
+      rows[1].should == [post_1.title, post_1.rating.to_f.to_s]
+      rows[2].should == [post_2.title, post_2.rating.to_f.to_s]
     end
 
   end
