@@ -1,7 +1,7 @@
 shared_context :dummy_serializers do
 
   class BlogPostSerializer < ScopedSerializer::Serializer
-    attributes :title
+    attributes :title, :rating
     scope :resource do
       belongs_to :user
       has_many :comments => { :user => :blog_posts }
@@ -56,6 +56,7 @@ shared_context :dummy_serializers do
   with_model :BlogPost do
     table do |t|
       t.string :title
+      t.decimal :rating
       t.belongs_to :user
       t.timestamps
     end
@@ -95,8 +96,8 @@ shared_context :dummy_serializers do
   let!(:user_1) { User.create(:name => 'John Doe') }
   let!(:user_2) { User.create(:name => 'Jane Doe') }
 
-  let!(:post_1) { BlogPost.create(:title => 'This is post 1', :user => user_1) }
-  let!(:post_2) { BlogPost.create(:title => 'This is post 2', :user => user_2) }
+  let!(:post_1) { BlogPost.create(:title => 'This is post 1', :user => user_1, :rating => BigDecimal('4.0')) }
+  let!(:post_2) { BlogPost.create(:title => 'This is post 2', :user => user_2, :rating => BigDecimal('9.0')) }
 
   let!(:comment_1) { Comment.create(:text => 'This is comment 1', :user => user_2, :blog_post => post_1) }
   let!(:comment_2) { Comment.create(:text => 'This is comment 2', :user => user_1, :blog_post => post_2) }

@@ -27,16 +27,18 @@ describe ActionController::Serialization, type: :controller do
     controller.serializer_scope.should == :collection
     json['blog_posts'].should == [
       {
-        'title' => 'This is post 1'
+        'title' => 'This is post 1',
+        'rating' => 4.0
       },
       {
-        'title' => 'This is post 2'
+        'title' => 'This is post 2',
+        'rating' => 9.0
       }
     ]
   end
 
   it 'should render resource scope' do
-    get :show, :id => 1
+    get :show, :params => { :id => 1 }
 
     controller.serializer_scope.should == :resource
     json['blog_post']['user'].should be_present

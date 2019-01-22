@@ -95,8 +95,15 @@ module ScopedSerializer
     #
     def attributes_hash
       attributes = @scope.attributes.collect do |attr|
-        [attr, fetch_property(attr)]
+        value = fetch_property(attr)
+
+        if value.kind_of?(BigDecimal)
+          value = value.to_f
+        end
+
+        [attr, value]
       end
+
       Hash[attributes]
     end
 

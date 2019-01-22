@@ -18,14 +18,14 @@ describe ScopedSerializer do
       end
 
       # Inherit default scope
-      BlogPostInheritedSerializer.find_scope(:default).attributes.should == [:title, :date]
+      BlogPostInheritedSerializer.find_scope(:default).attributes.should == [:title, :rating, :date]
 
       # Overwritten scope
-      BlogPostInheritedSerializer.find_scope(:resource).attributes.should == [:title, :date, :another_property]
+      BlogPostInheritedSerializer.find_scope(:resource).attributes.should == [:title, :rating, :date, :another_property]
       BlogPostInheritedSerializer.find_scope(:resource).associations.should == {}
 
       # Inherit other scopes
-      BlogPostInheritedSerializer.find_scope(:another_scope).attributes.should == [:title, :something, :date]
+      BlogPostInheritedSerializer.find_scope(:another_scope).attributes.should == [:title, :rating, :something, :date]
       BlogPostInheritedSerializer.find_scope(:another_scope).associations.should == { :comments => {} }
     end
 
@@ -83,11 +83,13 @@ describe ScopedSerializer do
         data.count.should == 2
 
         data[0].should == {
-          :title => 'This is post 1'
+          :title => 'This is post 1',
+          :rating => 4.0
         }
 
         data[1].should == {
-          :title => 'This is post 2'
+          :title => 'This is post 2',
+          :rating => 9.0
         }
       end
 
@@ -99,6 +101,7 @@ describe ScopedSerializer do
 
         data[0].should == {
           :title => 'This is post 1',
+          :rating => 4.0,
           :comments => [
             {
               :text => 'This is comment 1',
@@ -111,6 +114,7 @@ describe ScopedSerializer do
 
         data[1].should == {
           :title => 'This is post 2',
+          :rating => 9.0,
           :comments => [
             {
               :text => 'This is comment 2',
@@ -130,6 +134,7 @@ describe ScopedSerializer do
 
         data[0].should == {
           :title => 'This is post 1',
+          :rating => 4.0,
           :user => {
             :name => 'John Doe'
           },
@@ -140,7 +145,8 @@ describe ScopedSerializer do
                 :name => 'Jane Doe',
                 :blog_posts => [
                   {
-                    :title => 'This is post 2'
+                    :title => 'This is post 2',
+                    :rating => 9.0
                   }
                 ]
               }
@@ -150,6 +156,7 @@ describe ScopedSerializer do
 
         data[1].should == {
           :title => 'This is post 2',
+          :rating => 9.0,
           :user => {
             :name => 'Jane Doe'
           },
@@ -160,7 +167,8 @@ describe ScopedSerializer do
                 :name => 'John Doe',
                 :blog_posts => [
                   {
-                    :title => 'This is post 1'
+                    :title => 'This is post 1',
+                    :rating => 4.0
                   }
                 ]
               }
