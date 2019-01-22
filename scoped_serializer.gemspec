@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency 'rails', '>= 4.2'
+  s.add_dependency 'rails', '>= 4.0'
 
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'bundler'
@@ -27,6 +27,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'actionpack'
   s.add_development_dependency 'activesupport'
-  s.add_development_dependency 'sprockets', '>= 3.7.2'
-  s.add_development_dependency 'rest-client', '>= 1.8.0'
 end
