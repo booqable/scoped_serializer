@@ -38,7 +38,7 @@ describe ActionController::Serialization, type: :controller do
   end
 
   it 'should render resource scope' do
-    get :show, :params => { :id => 1 }
+    get :show, :id => 1
 
     controller.serializer_scope.should == :resource
     json['blog_post']['user'].should be_present
